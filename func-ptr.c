@@ -1,12 +1,12 @@
+//Marquise Byrd @02939181
 #include<stdio.h>
 #include<unistd.h>
 #include<stdlib.h>
 #include<errno.h>
-
 #include "process.h"
 #include "util.h"
 
-#define DEBUG 0			//change this to 1 to enable verbose output
+#define DEBUG 0 //change this to 1 to enable verbose output
 
 /**
  * Signature for an function pointer that can compare
@@ -14,33 +14,37 @@
  * type and then compare them according to your
  * custom logic
  */
-typedef int (*Comparer) (const void *a, const void *b);
+
+typedef int (*Comparer) (const void * a, const void * b);
+
 /**
  * compares 2 processes
  * You can assume: 
  * - Process ids will be unique
  * - No 2 processes will have same arrival time
  */
-int my_comparer(const void *this, const void *that)
+int my_comparer(const void * this, const void * that)
 {
 	//TODO: IMPLEMENT ME!
-	Process *process1 = (Process *) this;
-  Process *process2 = (Process *) that;
-	if (process1 -> priority > process2 -> priority) {
-    return -1;
-  } else if (process1 -> priority < process2 -> priority) {
-    return 1;
-  } else {
-    if (process1 -> arrival_time > process2 -> arrival_time) {
-      return 1;
-    } else if (process1 -> arrival_time < process2 -> arrival_time) {
-      return -1;
-    }
-  }
-	return 0;
+
+  // for comparing arrival times
+	// int first = ((Process *)this)->arrival_time;
+	// int second = ((Process *)that)->arrival_time;
+	// return first-second;
+
+  // for comparing priorities
+	int first = ((Process *)this) -> priority;
+	int second = ((Process *)that) -> priority;
+	
+	if (first == second) {
+		first = ((Process *)this) -> arrival_time;
+		second = ((Process *)that) -> arrival_time;
+		return first-second;
+	}
+	return second-first;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
 
 	if (argc < 2) {
@@ -52,7 +56,7 @@ int main(int argc, char *argv[])
 	/*******************/
 	/* Parse the input */
 	/*******************/
-	FILE *input_file = fopen(argv[1], "r");
+	FILE * input_file = fopen(argv[1], "r");
 	if (!input_file) {
 		   fprintf(stderr, "Error: Invalid filepath\n");
 		   fflush(stdout);
