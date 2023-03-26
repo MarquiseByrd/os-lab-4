@@ -1,3 +1,4 @@
+//Marquise Byrd @02939181
 #include "process.h"
 
 void process_ctr(Process * p, int pid, int arrival_time, int priority)
@@ -6,6 +7,3 @@ void process_ctr(Process * p, int pid, int arrival_time, int priority)
 	p->arrival_time = arrival_time;
 	p->priority = priority;
 }
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
